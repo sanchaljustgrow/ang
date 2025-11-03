@@ -1,4 +1,5 @@
 {
-  "apiUrl": "https://dummyjson.com/api",
-  "envName": "default"
+  "NG_APP_API_URL": "https://dummyjson.com/products/2",
+  "NG_APP_VAR1": "hello",
+  "NG_APP_VAR2": "world"
 }
