@@ -1,11 +1,14 @@
-import { ApplicationConfig } from '@angular/core';
-import { provideRouter } from '@angular/router';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { routes } from './app.routes';
+// src/app/app.config.ts
+import { ApplicationConfig, APP_INITIALIZER } from '@angular/core';
+import { provideHttpClient } from '@angular/common/http';
+import { ConfigService } from './config.service';
+
+export function initApp(cfg: ConfigService) { return () => cfg.load(); }
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes),
-    provideHttpClient(withInterceptorsFromDi())
+    provideHttpClient(),
+    ConfigService,
+    { provide: APP_INITIALIZER, useFactory: initApp, deps: [ConfigService], multi: true }
   ]
 };
