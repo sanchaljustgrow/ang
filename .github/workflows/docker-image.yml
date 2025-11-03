@@ -1,3 +1,4 @@
+
 name: Docker Build and Push Frontend
 
 on:
@@ -28,4 +29,4 @@ jobs:
           context: . # 👈 updated path
           push: true
           tags: sanchaljustgrow/docker-testnew-frontend:latest
-          platforms: linux/amd64s
+          platforms: linux/amd64
