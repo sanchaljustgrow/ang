@@ -6,9 +6,9 @@ import { Injectable } from '@angular/core';
 export class ConfigService {
   private config: Record<string, any> = {};
 
-  // Load config.json from the assets folder
   load(): Promise<void> {
-    return fetch('/assets/config.json') // ✅ FIXED PATH
+    // ✅ Always load from /assets/
+    return fetch('/assets/config.json')
       .then(response => {
         if (!response.ok) {
           throw new Error(`Failed to load config.json: ${response.statusText}`);
