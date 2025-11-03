@@ -1,5 +1,5 @@
 {
-  "NG_APP_API_URL": "https://dummyjson.com/products/2",
-  "NG_APP_VAR1": "hello",
-  "NG_APP_VAR2": "world"
+  "NG_APP_API_URL": "${NG_APP_API_URL}",
+  "NG_APP_VAR1": "${NG_APP_VAR1}",
+  "NG_APP_VAR2": "${NG_APP_VAR2}"
 }

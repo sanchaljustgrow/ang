@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { RouterOutlet } from '@angular/router';
 import { JsonPipe } from '@angular/common';
 
 @Component({
@@ -8,22 +8,32 @@ import { JsonPipe } from '@angular/common';
   standalone: true,
   imports: [RouterOutlet, JsonPipe],
   templateUrl: './app.html',
-  styleUrls: ['./app.css'],
+  styleUrls: ['./app.css']
 })
-export class App implements OnInit {
+export class App {
   title = 'TestEnv';
   data: any = null;
+  config: any = null;
 
-  // ✅ Runtime API URL (loaded from config.json or environment)
-  private testURL = (window as any).__APP_CONFIG__?.NG_APP_API_URL || 'https://task.thingsrms.com/v1';
-
-  constructor(private http: HttpClient) {}
+  // ✅ use Angular’s new inject() syntax instead of constructor injection
+  private http = inject(HttpClient);
 
   ngOnInit() {
-    console.log('API URL:', this.testURL);
-    this.http.get<any>(this.testURL).subscribe({
-      next: (data) => (this.data = data),
-      error: (err) => console.error('API call failed:', err),
+    // Load configuration from assets/config.json
+    this.http.get<any>('assets/config.json').subscribe({
+      next: (config) => {
+        this.config = config;
+        console.log('Loaded config:', config);
+        this.fetchData(config.NG_APP_API_URL);
+      },
+      error: (err) => console.error('Failed to load config:', err)
+    });
+  }
+
+  fetchData(url: string) {
+    this.http.get<any>(url).subscribe((data) => {
+      this.data = data;
+      console.log('API response:', data);
     });
   }
 }
