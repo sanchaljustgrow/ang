@@ -21,11 +21,11 @@ jobs:
           username: sanchaljustgrow
           password: dckr_pat_T7tgK2DZbSbLekJMq_hBE7li3nI
 
-      # Build & Push Frontend
       - name: Build & Push Frontend
         uses: docker/build-push-action@v5
         with:
-          context: . # 👈 updated path
+          context: .
           push: true
-          tags: sanchaljustgrow/docker-testnew-frontend:latest
-          platforms: linux/amd64s
+          tags: |
+            sanchaljustgrow/docker-testnew-frontend:latest
+          platforms: linux/amd64
